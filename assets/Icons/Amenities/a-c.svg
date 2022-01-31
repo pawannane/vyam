@@ -1,0 +1,16 @@
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="30" cy="30" r="30" fill="#FFCA00"/>
+<path d="M30 26.5V21" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30 39V33.5" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M28 21H32" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M28 39H32" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M26.97 28.25L22.21 25.5" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M37.79 34.5L33.03 31.75" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M21.21 27.23L23.21 23.77" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M36.79 36.23L38.79 32.77" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M33.5 30C33.5 30.64 33.33 31.23 33.03 31.75C32.42 32.8 31.29 33.5 30 33.5C28.71 33.5 27.58 32.8 26.97 31.75C26.67 31.23 26.5 30.64 26.5 30C26.5 29.36 26.67 28.77 26.97 28.25C27.58 27.2 28.71 26.5 30 26.5C31.29 26.5 32.42 27.2 33.03 28.25C33.33 28.77 33.5 29.36 33.5 30Z" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M37.79 25.5L33.03 28.25" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M26.97 31.75L22.21 34.5" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M38.79 27.23L36.79 23.77" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M23.21 36.23L21.21 32.77" stroke="#3A3A3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
