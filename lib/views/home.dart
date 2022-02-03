@@ -74,7 +74,7 @@ class _MyHomeState extends State<MyHome> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyGyms()));
+                                  builder: (context) => const MyGyms()));
                         },
                         child: Image.asset('assets/cards/gym.png')),
                     const SizedBox(
@@ -85,7 +85,7 @@ class _MyHomeState extends State<MyHome> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyZumba()));
+                                  builder: (context) => const MyZumba()));
                         },
                         child: Image.asset('assets/cards/zumba.png')),
                     const SizedBox(
@@ -96,7 +96,7 @@ class _MyHomeState extends State<MyHome> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyYoga()));
+                                  builder: (context) => const MyYoga()));
                         },
                         child: Image.asset('assets/cards/yoga.png')),
                   ],

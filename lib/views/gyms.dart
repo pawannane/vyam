@@ -8,7 +8,7 @@ class MyGyms extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text(
             "Gyms",
             style:
@@ -19,10 +19,10 @@ class MyGyms extends StatelessWidget {
           Opacity(
             opacity: 0,
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: const Icon(
                   Icons.share,
-                )),
+                ),),
           )
         ],
         backgroundColor: Colors.transparent,
@@ -89,8 +89,8 @@ class MyGyms extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
+                    children: const[
+                       Text(
                         "Transformers Gym",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -98,7 +98,7 @@ class MyGyms extends StatelessWidget {
                             fontSize: 15,
                             fontWeight: FontWeight.w600),
                       ),
-                      const Text(
+                       Text(
                         "Bus stand, Barakar",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -183,8 +183,8 @@ class MyGyms extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
+                    children: const [
+                       Text(
                         "Fitness Fantasy",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -192,7 +192,7 @@ class MyGyms extends StatelessWidget {
                             fontSize: 15,
                             fontWeight: FontWeight.w600),
                       ),
-                      const Text(
+                       Text(
                         "Asansal, ashram more",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -277,8 +277,8 @@ class MyGyms extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
+                    children: const[
+                       Text(
                         "GymX studios",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -286,7 +286,7 @@ class MyGyms extends StatelessWidget {
                             fontSize: 15,
                             fontWeight: FontWeight.w600),
                       ),
-                      const Text(
+                       Text(
                         "Asansal, ashram more",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -371,8 +371,8 @@ class MyGyms extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
+                    children: const[
+                       Text(
                         "Gravity Fitness",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -380,7 +380,7 @@ class MyGyms extends StatelessWidget {
                             fontSize: 15,
                             fontWeight: FontWeight.w600),
                       ),
-                      const Text(
+                       Text(
                         "Asansl, ashram more",
                         textAlign: TextAlign.center,
                         style: TextStyle(

@@ -8,7 +8,7 @@ class MyYoga extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text(
             "Yoga",
             style:
@@ -19,10 +19,11 @@ class MyYoga extends StatelessWidget {
           Opacity(
             opacity: 0,
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(
-                  Icons.share,
-                )),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: const Icon(
+                Icons.share,
+              ),
+            ),
           )
         ],
         backgroundColor: Colors.transparent,
@@ -89,8 +90,8 @@ class MyYoga extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         "Powerhouse Gym",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -98,7 +99,7 @@ class MyYoga extends StatelessWidget {
                             fontSize: 15,
                             fontWeight: FontWeight.w600),
                       ),
-                      const Text(
+                      Text(
                         "Bus stand, Barakar",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -183,8 +184,8 @@ class MyYoga extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         "Lakshman Gym",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -192,7 +193,7 @@ class MyYoga extends StatelessWidget {
                             fontSize: 15,
                             fontWeight: FontWeight.w600),
                       ),
-                      const Text(
+                      Text(
                         "Asansal, ashram more",
                         textAlign: TextAlign.center,
                         style: TextStyle(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vyam/views/gyms.dart';
 import 'package:vyam/views/home.dart';
 
 void main() {
