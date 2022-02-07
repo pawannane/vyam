@@ -4,41 +4,42 @@ import 'package:vyam/views/gyms.dart';
 import 'package:vyam/views/yoga.dart';
 import 'package:vyam/views/zumba.dart';
 
-class MyHome extends StatefulWidget {
-  const MyHome({Key? key}) : super(key: key);
-
-  @override
-  State<MyHome> createState() => _MyHomeState();
-}
-
-class _MyHomeState extends State<MyHome> {
-  int currentIndex = 0;
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: TextField(
+          decoration: InputDecoration(
+            hintText: '2972 Westhelmer Rd, Illinois 85686',
+            hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+            prefixIcon: SvgPicture.asset(
+              'assets/Icons/Location.svg',
+              fit: BoxFit.none,
+            ),
+            suffixIcon: SvgPicture.asset(
+              'assets/Icons/notification.svg',
+              fit: BoxFit.none,
+            ),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             TextField(
               decoration: InputDecoration(
-                hintText: '2972 Westhelmer Rd, Illinois 85686',
-                hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                prefixIcon: SvgPicture.asset(
-                  'assets/Icons/Location.svg',
-                ),
-                suffixIcon: SvgPicture.asset('assets/Icons/notification.svg'),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextField(
-              decoration: InputDecoration(
                 hintText: 'Search',
                 hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                prefixIcon: SvgPicture.asset('assets/Icons/Search.svg'),
+                prefixIcon: SvgPicture.asset(
+                  'assets/Icons/Search.svg',
+                  fit: BoxFit.none,
+                ),
                 border: const OutlineInputBorder(),
               ),
             ),
@@ -111,30 +112,6 @@ class _MyHomeState extends State<MyHome> {
             )
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) => setState(() {
-          currentIndex = index;
-        }),
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.note),
-              label: 'Bookings',
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.explore),
-              label: 'Explore',
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_box),
-              label: 'Profile',
-              backgroundColor: Colors.black),
-        ],
       ),
     );
   }

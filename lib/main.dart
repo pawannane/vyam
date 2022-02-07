@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:vyam/views/bookings.dart';
+import 'package:vyam/views/explore.dart';
 import 'package:vyam/views/home.dart';
+import 'package:vyam/views/profile.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int currentIndex = 0;
+  final screens = [
+    const Home(),
+    const Bookings(),
+    const Explore(),
+    const Profile(),
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +32,35 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         primaryColor: Colors.black,
       ),
-      home: const MyHome(),
+      home: Scaffold(
+        body: screens[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.black,
+          onTap: (index) => setState(() {
+            currentIndex = index;
+          }),
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+                backgroundColor: Colors.black),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.note),
+                label: 'Bookings',
+                backgroundColor: Colors.black),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.explore),
+                label: 'Explore',
+                backgroundColor: Colors.black),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_box),
+                label: 'Profile',
+                backgroundColor: Colors.black),
+          ],
+        ),
+      ),
     );
   }
 }
