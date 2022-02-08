@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 
 class Explore extends StatefulWidget {
   const Explore({Key? key}) : super(key: key);
@@ -20,29 +19,8 @@ class _ExploreState extends State<Explore> {
   );
 
   final Completer<GoogleMapController> _controller = Completer();
-  late GoogleMapController _mapController;
-  late String _mapStyle;
+  
 
-  @override
-  void initState() {
-    super.initState();
-
-    rootBundle.loadString('assets/map_style.txt').then((string) {
-      _mapStyle = string;
-    });
-  }
-
-  // Future<String> getJsonFile(String path) async {
-  //   return await rootBundle.loadString(path);
-  // }
-
-  // void setMapStyle(String mapStyle) {
-  //   _mapController.setMapStyle(mapStyle);
-  // }
-
-  // changeMapMode() {
-  //   getJsonFile("assets/map_style.json").then(setMapStyle);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +45,7 @@ class _ExploreState extends State<Explore> {
             mapType: MapType.terrain,
             initialCameraPosition: _initialCameraPosition,
             onMapCreated: (GoogleMapController controller) {
-              _mapController = controller;
-              _mapController.setMapStyle(_mapStyle);
-              // _controller.complete(controller);
+              _controller.complete(controller);
             },
             markers: {barakar, asanol1, asanol2},
           ),
