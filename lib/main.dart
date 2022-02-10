@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vyam/views/bookings.dart';
+import 'package:vyam/views/contact_us.dart';
 import 'package:vyam/views/explore.dart';
+import 'package:vyam/views/faq.dart';
 import 'package:vyam/views/home.dart';
 import 'package:vyam/views/profile.dart';
 
@@ -21,7 +23,7 @@ class _MyAppState extends State<MyApp> {
     const Home(),
     const Bookings(),
     const Explore(),
-    const Profile(),
+    const Faq(),
   ];
   @override
   Widget build(BuildContext context) {
