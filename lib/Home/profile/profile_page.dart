@@ -1,13 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vyam_2_final/Home/profile/faq.dart';
 import 'package:vyam_2_final/Home/profile/profile.dart';
+import 'package:vyam_2_final/authintication/login.dart';
 import 'package:vyam_2_final/authintication/regitration_from.dart';
 
 class ProfilePart extends StatelessWidget {
-  const ProfilePart({Key? key}) : super(key: key);
-
+  ProfilePart({Key? key}) : super(key: key);
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -262,7 +264,11 @@ class ProfilePart extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.black87,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        _auth.signOut();
+                        Get.to(()=>const LoginPage());
+
+                      },
                       child: const Text(
                         "Log out",
                         style: TextStyle(

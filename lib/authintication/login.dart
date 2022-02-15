@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vyam_2_final/authintication/otp_screen.dart';
@@ -5,8 +6,17 @@ import 'package:vyam_2_final/colors/color.dart';
 import 'package:vyam_2_final/controllers/onbording_controller.dart';
 
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool showLoding=false;
+  TextEditingController phoneController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +25,12 @@ class LoginPage extends StatelessWidget {
         .size;
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: SafeArea(
+      body:
+      showLoding?
+          const Center(
+            child: CircularProgressIndicator(),
+          ):
+      SafeArea(
             child: SingleChildScrollView(
               child: Container(
                   color: backgroundColor,
@@ -117,10 +132,10 @@ class LoginPage extends StatelessWidget {
                             child: SizedBox(
                               height: size.height / 15,
                               width: size.width / 2,
-                              child: const TextField(
-                                // controller: phoneController,
+                              child:  TextField(
+                                controller: phoneController,
                                 keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Enter phone number"),
                               ),
@@ -136,8 +151,37 @@ class LoginPage extends StatelessWidget {
                         width: size.width/1.2,
                         height: size.height/17,
                         child: ElevatedButton(
-                          onPressed: () {
-                              Get.toNamed(OtpPage.id);
+                          onPressed: () async {
+                            setState((){
+                              showLoding = true;
+                            });
+                            await _auth.verifyPhoneNumber(
+                                phoneNumber: "+91${phoneController.text}",
+                                verificationCompleted: (phoneAuthCredential) async {
+                                  setState((){
+                                    showLoding = false;
+                                  });
+
+                                },
+                                verificationFailed: (verificationFailed) async {
+                                  Get.snackbar("Fail","${verificationFailed.message}");
+                                  print(verificationFailed.message);
+                                  setState((){
+                                    showLoding = false;
+                                  });
+                                },
+                                codeSent: (verificationID, resendingToken) async {
+                                  setState((){
+                                    showLoding = false;
+                                  });
+                                  Get.to(() => OtpPage(),
+                                      arguments: [verificationID,"+91${phoneController.text}"]
+                                  );
+                                },
+                                codeAutoRetrievalTimeout: (verificationID) async {
+
+                                }
+                            );
                           },
                           child: const Text(
                               "Continue",
