@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
       FirstHome(),
       const BookingDetails(),
       const Explore(),
-      const ProfilePart(),
+       ProfilePart(),
     ];
   }
 

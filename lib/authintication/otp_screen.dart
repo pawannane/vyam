@@ -1,11 +1,48 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vyam_2_final/authintication/regitration_from.dart';
+import 'package:vyam_2_final/Home/home_page.dart';
+// import 'package:vyam_2_final/authintication/regitration_from.dart';
 import 'package:vyam_2_final/colors/color.dart';
 
-class OtpPage extends StatelessWidget {
+class OtpPage extends StatefulWidget {
   static String id = "/otp_screen";
-  const OtpPage({Key? key}) : super(key: key);
+   OtpPage({Key? key}) : super(key: key);
+
+  @override
+  State<OtpPage> createState() => _OtpPageState();
+}
+
+class _OtpPageState extends State<OtpPage> {
+  var value =Get.arguments;
+  // var id = Get.arguments["id"];
+  final FirebaseAuth _auth =FirebaseAuth.instance;
+  bool showLoading = false;
+  TextEditingController otpController =TextEditingController();
+
+  void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async
+  {
+    setState(() {
+      showLoading  = true;
+    });
+    try {
+      final authCred = await _auth.signInWithCredential(phoneAuthCredential);
+      setState(() {
+        showLoading = false;
+      });
+      if(authCred.user != null)
+      {
+        Get.offAll(()=>HomePage());
+        // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage()));
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        showLoading  = false;
+      });
+      print(e.message);
+      ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text('Some Error Occured. Try Again Later')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +51,12 @@ class OtpPage extends StatelessWidget {
         .size;
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: SafeArea(
+      body:
+        showLoading?
+        const Center(
+        child: CircularProgressIndicator(),
+    ):
+      SafeArea(
           child: SingleChildScrollView(
             child: Container(
                 color: backgroundColor,
@@ -79,15 +121,15 @@ class OtpPage extends StatelessWidget {
                               SizedBox(
                                 height: size.height / 15,
                                 width: size.width / 1.8,
-                                child: const TextField(
-                                  // controller: phoneController,
-                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w800,fontSize: 20),
+                                child: TextField(
+                                  controller: otpController,
+                                  style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w800,fontSize: 20),
                                   textAlign: TextAlign.center,
                                   cursorHeight: 25,
                                   maxLength: 6,
                                   cursorColor: Colors.black,
                                   keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     fillColor: Colors.white,
                                       border: UnderlineInputBorder(
                                       ),
@@ -127,8 +169,13 @@ class OtpPage extends StatelessWidget {
                           width: size.width/1.2,
                           height: size.height/17,
                           child: ElevatedButton(
-                            onPressed: () {
-                              Get.toNamed(RegistrationPage.id);
+                            onPressed: () async{
+                              AuthCredential phoneAuthCredential =  PhoneAuthProvider.credential(
+                                  verificationId: value[0],
+                                  smsCode: otpController.text
+                              );
+                              signInWithPhoneAuthCred(phoneAuthCredential);
+                              // Get.toNamed(RegistrationPage.id);
                             },
                             child: const Text(
                               "Verify",
