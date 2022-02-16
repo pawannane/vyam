@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:vyam_2_final/models/gym_models.dart';
 import '../../controllers/gym_controller.dart';
 
 const String api = "AIzaSyBdpLJQN_y-VtLZ2oLwp8OEE5SlR8cHHcQ";
@@ -24,13 +27,69 @@ class _ExploreState extends State<Explore> {
 
   final Completer<GoogleMapController> _controller = Completer();
   final GymController controller = Get.put(GymController());
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  List<GymModel> filteredGymLists = [];
+
+  void initMarker(specify, specifyId) async {
+    var markerIdVal = specifyId;
+    final MarkerId markerId = MarkerId(markerIdVal);
+    final Marker marker = Marker(
+      markerId: markerId,
+      position:
+          LatLng(specify['location'].latitude, specify['location'].longitude),
+      infoWindow: InfoWindow(title: 'Gym', snippet: specify['name']),
+    );
+    setState(() {
+      markers[markerId] = marker;
+    });
+  }
+
+  getMarkerData() async {
+    await Firebase.initializeApp();
+    FirebaseFirestore.instance
+        .collection('product_details')
+        .get()
+        .catchError((e) {
+      print("Error: " + e.toString());
+    }).then((myMockData) {
+      if (myMockData.docs.isNotEmpty) {
+        for (int i = 0; i < myMockData.docs.length; i++) {
+          initMarker(myMockData.docs[i].data(), myMockData.docs[i].id);
+        }
+      }
+    });
+  }
+
+  void _runFilter(String enteredKeyword) {
+    List<GymModel> results = [];
+    if (enteredKeyword.isEmpty) {
+      results = controller.gymLists;
+    } else {
+      results = controller.gymLists
+          .where((g) =>
+              g.location.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    setState(() {
+      filteredGymLists = results;
+    });
+  }
+
+  @override
+  void initState() {
+    getMarkerData();
+    filteredGymLists = controller.gymLists;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const TextField(
-          decoration: InputDecoration(
+        title: TextField(
+          onChanged: (value) => _runFilter(value),
+          decoration: const InputDecoration(
               hintText: 'Barakar, West Bengal',
               hintStyle: TextStyle(fontWeight: FontWeight.bold),
               prefixIcon: Icon(Icons.search)),
@@ -46,31 +105,40 @@ class _ExploreState extends State<Explore> {
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
-            markers: {barakar, asanol1, asanol2},
+            markers: Set<Marker>.of(markers.values),
           ),
           Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 20.0),
-                  height: 150.0,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.gymLists.length,
-                      itemBuilder: (context, index) {
-                        final gym = controller.gymLists[index];
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24.0),
-                          ),
-                          elevation: 8,
-                          child: Row(
-                            children: [
-                              _boxes(gym.image, gym.lat, gym.lon, gym.name,
-                                  gym.location, gym.address, gym.review)
-                            ],
-                          ),
-                        );
-                      }))),
+            alignment: Alignment.bottomLeft,
+            child: Expanded(
+              child: filteredGymLists.isNotEmpty
+                  ? Container(
+                      margin: const EdgeInsets.symmetric(vertical: 20.0),
+                      height: 150.0,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: filteredGymLists.length,
+                          itemBuilder: (context, index) {
+                            final gym = controller.gymLists[index];
+                            return Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                              ),
+                              elevation: 8,
+                              child: Row(
+                                children: [
+                                  _boxes(gym.image, gym.lat, gym.lon, gym.name,
+                                      gym.location, gym.address, gym.review)
+                                ],
+                              ),
+                            );
+                          }),
+                    )
+                  : const Text(
+                      "No results found",
+                      style: TextStyle(fontSize: 24),
+                    ),
+            ),
+          ),
         ],
       ),
     );
@@ -186,27 +254,3 @@ class _ExploreState extends State<Explore> {
     )));
   }
 }
-
-Marker barakar = Marker(
-    markerId: const MarkerId('barakar'),
-    position: const LatLng(23.7264376, 86.8434882),
-    infoWindow: const InfoWindow(title: 'Bus Stand, Barakar'),
-    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow));
-
-Marker asanol1 = Marker(
-    markerId: const MarkerId('asanol1'),
-    position: const LatLng(23.6828365, 86.9816039),
-    infoWindow: const InfoWindow(title: 'Ashram More, Asanol'),
-    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow));
-
-Marker asanol2 = Marker(
-    markerId: const MarkerId('asanol2'),
-    position: const LatLng(23.6823747, 86.9817005),
-    infoWindow: const InfoWindow(title: 'Ashram More, Asanol'),
-    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow));
-
-
-// SvgPicture.asset(
-// 'assets/Icons/Search.svg',
-// fit: BoxFit.none,
-// ),

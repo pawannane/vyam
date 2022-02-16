@@ -11,6 +11,7 @@ import 'know_trainer.dart';
 class GymDetails extends StatefulWidget {
   final getID;
 
+  
   const GymDetails({Key? key, required this.getID}) : super(key: key);
 
   @override
